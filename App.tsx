@@ -14,7 +14,7 @@ export default function App() {
                 <Header/>
                 <View style={styles.wrapper}>
                     <Main/>
-                    <StatusBar style="auto"/>
+                    <StatusBar backgroundColor={'#fff'}/>
                 </View>
             </View>
         </Provider>
@@ -26,9 +26,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        marginTop: 35
+        marginTop: 35,
+        paddingBottom: 55
     },
     wrapper: {
-        padding: 20
-    }
+        paddingHorizontal: 20
+    },
 });

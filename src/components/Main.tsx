@@ -1,7 +1,8 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {useAppSelector} from '../hooks/useAppSelector';
 import {Authorization} from '../pages/Authorization';
+import {PostsList} from '../components/PostsList';
 
 export const Main = () => {
 
@@ -9,8 +10,7 @@ export const Main = () => {
 
     return (
         <View>
-
-            {isUserLogged ? <Text>Open up App.tsx to start working on your app!</Text> : <Authorization/>}
+            {isUserLogged ? <PostsList/> : <Authorization/>}
         </View>
     );
 };

@@ -8,7 +8,7 @@ export type AuthStateType = {
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        isUserLogged: false,
+        isUserLogged: true,
         error: null
     } as AuthStateType,
     reducers: {
