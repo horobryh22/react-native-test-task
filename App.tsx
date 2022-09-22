@@ -1,25 +1,23 @@
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, View} from 'react-native';
-import {useState} from 'react';
-import {Authorization} from './src/pages/Authorization';
 import {Header} from './src/components/Header';
 import {Main} from './src/components/Main';
+import {Provider} from 'react-redux';
+import {store} from './src/store/store';
 
 
 export default function App() {
 
-    const [isLogged, setIsLogged] = useState(false);
-
     return (
-
-        <View style={styles.container}>
-            <Header/>
-            <View style={styles.wrapper}>
-                {isLogged ? <Main/> : <Authorization/>}
-                <StatusBar style="auto"/>
+        <Provider store={store}>
+            <View style={styles.container}>
+                <Header/>
+                <View style={styles.wrapper}>
+                    <Main/>
+                    <StatusBar style="auto"/>
+                </View>
             </View>
-        </View>
-
+        </Provider>
     );
 }
 

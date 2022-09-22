@@ -1,14 +1,33 @@
-import React, {useState} from 'react';
-import {SafeAreaView, TextInput, TouchableOpacity, StyleSheet, Text} from 'react-native';
-
-export type AuthorizationType = {
-    isLogged: boolean;
-    setIsLogged: (value: boolean) => void
-}
+import React from 'react';
+import {SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native';
+import {useAppDispatch} from '../hooks/useAppDispatch';
+import {setAuthError, setIsUserLogged} from '../store/auth/auth';
+import {useAppSelector} from '../hooks/useAppSelector';
 
 export const Authorization = () => {
 
-    const [error, setError] = useState<null | string>(null);
+    const dispatch = useAppDispatch();
+
+    const [email, onChangeEmail] = React.useState('');
+    const [password, onChangePassword] = React.useState('');
+
+    const error = useAppSelector(state => state.auth.error);
+
+    const login = () => {
+        if (email === '123' && password === '123') {
+            dispatch(setAuthError(null));
+            dispatch(setIsUserLogged(true))
+            return;
+        }
+
+        dispatch(setAuthError('Incorrect email or password'));
+    }
+
+    const handleChange = () => {
+        if (error) {
+            dispatch(setAuthError(null));
+        }
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -16,32 +35,33 @@ export const Authorization = () => {
             <Text style={styles.buttonText}>login</Text>
             <TextInput
                 style={styles.input}
-                // onChangeText={onChangeEmail}
-                onChange={() => setError(null)}
-                // value={email}
+                onChangeText={onChangeEmail}
+                onChange={handleChange}
+                value={email}
             />
             <Text style={styles.buttonText}>password</Text>
             <TextInput
                 style={styles.input}
-                // onChangeText={onChangePassword}
-                onChange={() => setError(null)}
-                // value={password}
+                onChangeText={onChangePassword}
+                onChange={handleChange}
+                value={password}
                 secureTextEntry={true}
                 textContentType={'password'}
             />
+            <Text style={styles.error}>{error}</Text>
             <TouchableOpacity
                 style={styles.button}
-                // onPress={login}
+                onPress={login}
             >
                 <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
-            <Text style={styles.error}>{error}</Text>
         </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
+        padding: 20,
         marginTop: 40,
         alignItems: 'center',
         borderWidth: 2,
